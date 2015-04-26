@@ -15,7 +15,7 @@ def findDevs():
             
 
 while True:
+    print 'Searching for Bluetooth devices:'
     findDevs()
     print 'Waiting for 5 seconds until next scan...'
     time.sleep(5)
-    
