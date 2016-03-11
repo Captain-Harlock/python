@@ -81,7 +81,7 @@ def recvall(s, length, timeout=5):
 def recvmsg(s):
     hdr = recvall(s, 5)
     
-    mtypes = {22:"Handshake",24:"HeartBeat"}
+    mtypes = {22:"Handshake",24:"HeartBeat",21:"Alert Message"}
     if hdr is None:
         print 'Unexpected EOF receiving record header - server closed connection'
         return None, None, None
