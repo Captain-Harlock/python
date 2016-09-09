@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #Linux password cracking with Dictionary file
 #This tool uses as input two files a linux /etc/shadow file and a dictionary file with passwords.
 
