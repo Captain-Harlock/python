@@ -9,7 +9,7 @@ def testPass(cryptPass):
 	salt = cryptPass[0:12]
 	#dictFile = open('dictionary2.txt','r', errors='ignore')
 
-	for word in open('crackstation.txt','r'):
+	for word in open('rockyou.txt','r'):
 		#dictFile.readlines():
 		word = word.strip('\n')
 		cryptWord = crypt.crypt("%r"%word,salt)
