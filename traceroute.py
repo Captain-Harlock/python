@@ -88,6 +88,7 @@ def main(dest_name, hops):
         print "%d\t%s" % (ttl, curr_host)
 
         ttl += 1
+        #exit when the destination address is equal with the current address or reach the maximum number of Hops
         if curr_addr == dest_addr or ttl > max_hops:
             break
 
