@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #based on the https://github.com/leonidg/Poor-Man-s-traceroute/blob/master/poor-mans-traceroute.py
 
 
