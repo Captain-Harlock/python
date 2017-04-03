@@ -68,9 +68,11 @@ def main(dest_name, hops):
             _, curr_addr = recv_socket.recvfrom(512)
             curr_addr = curr_addr[0]
             try:
+                #resolve address to host, either keep the address
                 curr_name = socket.gethostbyaddr(curr_addr)[0]
             except socket.error:
                 curr_name = curr_addr
+        #in case of timeout return a start instead of ip or hostname
         except socket.timeout:
             curr_name = '*'
         except socket.error:
