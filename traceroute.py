@@ -3,7 +3,11 @@
 
 
 import socket
+import sys
 import random
+from optparse import OptionParser
+
+
 
 #declaration of global constants
 IPV4 = socket.AF_INET
@@ -18,6 +22,7 @@ port = random.randint(33434, 33535)
 def receive():
     icmp = socket.getprotobyname('icmp')
     recv_socket = socket.socket(IPV4, RAW, icmp)
+    recv_socket.settimeout(1)
 
     return recv_socket
 
@@ -32,9 +37,9 @@ def send(ttl):
 
 
 
-def main(dest_name):
+def main(dest_name, hops):
     global ttl
-    
+
     dest_addr = socket.gethostbyname(dest_name)
     max_hops = 30
     icmp = socket.getprotobyname('icmp')
@@ -42,12 +47,12 @@ def main(dest_name):
 
 
     while True:
-     
-        #create the two sockets, the one for receiving the ICMP replies 
+
+        #create the two sockets, the one for receiving the ICMP replies
         #and the other for sending the UDP packets
         recv_socket = receive()
         send_socket = send(ttl)
-        
+
         #bind the receive socket to the random port with range 33434 to 33535
         recv_socket.bind(("0.0.0.0", port))
 
@@ -57,7 +62,7 @@ def main(dest_name):
 
         curr_addr = None
         curr_name = None
-      
+
         try:
             #receive 512 bytes from the receiving socket. Discard the data keep the address
             _, curr_addr = recv_socket.recvfrom(512)
@@ -66,6 +71,8 @@ def main(dest_name):
                 curr_name = socket.gethostbyaddr(curr_addr)[0]
             except socket.error:
                 curr_name = curr_addr
+        except socket.timeout:
+            curr_name = '*'
         except socket.error:
             pass
         finally:
@@ -83,4 +90,19 @@ def main(dest_name):
             break
 
 if __name__ == "__main__":
-    main('google.com')
+
+    parser = OptionParser()
+
+    parser.add_option("-m", "--max-hops", dest="hops",
+                      help="Maximum number of hops before quiting [default: %default]",
+                      default=30, metavar="MAXHOPS")
+
+    (options, args) = parser.parse_args()
+    
+    if len(args) !=1:
+         print "Usage: sudo ./traceroute.py www.hostname.com [-m hops]"
+         sys.exit(1)
+    
+    hostname = args[0]
+    hops     = int(options.hops) 
+    main(hostname, hops)                                                                                        
