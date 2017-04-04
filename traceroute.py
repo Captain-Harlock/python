@@ -41,7 +41,7 @@ def main(dest_name, hops):
     global ttl
 
     dest_addr = socket.gethostbyname(dest_name)
-    max_hops = 30
+    max_hops = hops
     icmp = socket.getprotobyname('icmp')
     udp = socket.getprotobyname('udp')
 
