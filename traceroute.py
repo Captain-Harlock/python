@@ -22,6 +22,7 @@ port = random.randint(33434, 33535)
 def receive():
     icmp = socket.getprotobyname('icmp')
     recv_socket = socket.socket(IPV4, RAW, icmp)
+    #don't wait forever but only 1 second for the response
     recv_socket.settimeout(1)
 
     return recv_socket
