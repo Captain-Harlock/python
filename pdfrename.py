@@ -73,7 +73,7 @@ for filename, fullpathFilename in zip(filenameList, fullPathFileList):
         else:
             newFilename = newFilename +'.pdf'
         #if the new filename is larger than 35 chars don't change it
-        if len(newFilename) > 35:
+        if len(newFilename) > 64:
             continue
 
         print("Renaming file:%s to %s" %(oldFilename, newFilename))
