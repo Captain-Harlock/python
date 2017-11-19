@@ -50,7 +50,7 @@ class workerThread(threading.Thread):
         with self.lock:
             percentage = ((self.reportQueue.qsize())/numOfPDFsFound)*100
             sys.stdout.flush()
-            sys.stdout.write("\rSearching keword in file(s). Progress %s%%" %(percentage))
+            sys.stdout.write("\rSearching keyword in file(s). Progress %s%%" %(percentage))
             sys.stdout.flush()
 
        
@@ -105,7 +105,7 @@ def main():
     #block until all items are completed
     queue.join()            
     
-    print ('\nExecuted search in time: %s seconds' %(time.time() - start))
+    print ('\nExecuted search in: %s seconds' %(time.time() - start))
     
     print "Text \'%s\' found in the following files:" %keyword
     for filename in foundFilesList:
